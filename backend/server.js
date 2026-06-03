@@ -8,9 +8,13 @@ import authRoutes from "./routes/authRoutes.js";
 import channelRoutes from "./routes/channelRoutes.js";
 import videoRoutes from "./routes/videoRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import cors from "cors";
 
 
 const app = new express();
+app.use(cors());app.use(cors({
+  origin: "http://localhost:5173"
+}));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
