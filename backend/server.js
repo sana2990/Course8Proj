@@ -5,11 +5,16 @@ import Channel from "./models/Channel.js";
 import Video from "./models/Video.js";
 import Comment from "./models/Comment.js";
 import authRoutes from "./routes/authRoutes.js";
+import channelRoutes from "./routes/channelRoutes.js";
+import videoRoutes from "./routes/videoRoutes.js";
+
 
 const app = new express();
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/channels", channelRoutes);
+app.use("/videos", videoRoutes);
 app.listen(5002, () => {
     console.log("server: 5002");
 })
