@@ -3,6 +3,7 @@ import express from "express";
 import {
   createChannel,
   getChannel,
+  getChannelVideos,
 } from "../controllers/channelController.js";
 
 import verifyToken from "../middleware/verifyToken.js";
