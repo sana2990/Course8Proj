@@ -17,4 +17,6 @@ router.post(
 
 router.get("/:id", getChannel);
 
+router.get("/:channelId/videos", getChannelVideos);
+
 export default router;

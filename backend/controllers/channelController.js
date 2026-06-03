@@ -39,3 +39,22 @@ export const getChannel = async (
     });
   }
 };
+
+import Video from "../models/Video.js";
+
+export const getChannelVideos = async (
+  req,
+  res
+) => {
+  try {
+    const videos = await Video.find({
+      channelId: req.params.channelId,
+    });
+
+    res.status(200).json(videos);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
