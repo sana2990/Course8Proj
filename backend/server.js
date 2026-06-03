@@ -1,5 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
+import User from "./models/User.js";
+import Channel from "./models/Channel.js";
+import Video from "./models/Video.js";
+import Comment from "./models/Comment.js";
 
 const app = new express();
 app.listen(5002, () => {
