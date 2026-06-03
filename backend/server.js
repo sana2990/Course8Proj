@@ -4,13 +4,17 @@ import User from "./models/User.js";
 import Channel from "./models/Channel.js";
 import Video from "./models/Video.js";
 import Comment from "./models/Comment.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = new express();
+app.use(express.json());
+
+app.use("/api/auth", authRoutes);
 app.listen(5002, () => {
     console.log("server: 5002");
 })
 
-mongoose.connect("mongodb://localhost:27017");
+mongoose.connect("mongodb://localhost:27017/youtubeclone");
 
 const db = mongoose.connection;
 db.on("open", () => {
