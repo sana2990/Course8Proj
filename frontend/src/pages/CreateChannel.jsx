@@ -28,6 +28,7 @@ function CreateChannel() {
     localStorage.setItem("channelId", res.data._id);
 
     alert("Channel Created!");
+
   };
 
   return (

@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const api = axios.create({
   baseURL: "http://localhost:5002",
 });
 
+
 function Channel() {
   const [channel, setChannel] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { id } = useParams();
 
-  const channelId = localStorage.getItem("channelId");
+  const { id: channelId } = useParams();
 
   useEffect(() => {
     if (!channelId) return;

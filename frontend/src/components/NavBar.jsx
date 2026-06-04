@@ -66,11 +66,19 @@ function Navbar() {
               {username}
             </span>
 
-            <button
-              onClick={() => navigate("/create-channel")}
-            >
-              Create Channel
-            </button>
+           <button
+  onClick={() => {
+    const channelId = localStorage.getItem("channelId");
+
+    if (channelId) {
+      navigate("/channel");
+    } else {
+      navigate("/create-channel");
+    }
+  }}
+>
+  Channel
+</button>
 
             <button
               onClick={() => navigate("/upload-video")}
