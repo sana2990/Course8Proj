@@ -1,42 +1,10 @@
-import Channel from "../models/Channel.js";
-import Video from "../models/Video.js";
+import mongoose from "mongoose";
 
-// CREATE CHANNEL
-export const createChannel = async (req, res) => {
-  try {
-    const channel = await Channel.create({
-      channelName: req.body.channelName,
-      description: req.body.description,
-      owner: req.user.id,
-    });
+const channelSchema = new mongoose.Schema({
+  channelName: String,
+  description: String,
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+});
 
-    res.status(201).json(channel);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-// GET CHANNEL
-export const getChannel = async (req, res) => {
-  try {
-    const channel = await Channel.findById(req.params.id)
-      .populate("videos");
-
-    res.json(channel);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-// GET CHANNEL VIDEOS
-export const getChannelVideos = async (req, res) => {
-  try {
-    const videos = await Video.find({
-      channelId: req.params.channelId,
-    });
-
-    res.json(videos);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+export default mongoose.model("Channel", channelSchema);

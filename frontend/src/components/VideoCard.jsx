@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function VideoCard({ video }) {
-  console.log("Video Data in Card:", video);
+  console.log("FULL VIDEO OBJECT:", video.thumbnailUrl);
 
   // Fallback check: Use video._id, if missing try video.id, if missing default to a fallback string
   const videoId = video._id || video.id;
@@ -14,7 +14,7 @@ function VideoCard({ video }) {
         <img
           src={video.thumbnailUrl}
           alt={video.title}
-          width="100%"
+          width="200px"
         />
 
         <h4>{video.title}</h4>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import { Link } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -40,6 +41,11 @@ function Login() {
   };
 
   return (
+    <>
+     <p style={{ marginTop: "10px" }}>
+        Dont have an account?{" "}
+        <Link to="/register">Register here</Link>
+      </p>
     <form onSubmit={handleLogin}>
       <h2>Login</h2>
 
@@ -63,6 +69,7 @@ function Login() {
         Login
       </button>
     </form>
+    </>
   );
 }
 

@@ -4,6 +4,22 @@ import { useNavigate } from "react-router-dom";
 function Navbar() {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    navigate(`/?search=${value}`);
+  };
+
+const handleKeyDown = (e) => {
+  if (e.key === "Enter") {
+    handleSearch(search);
+  }
+};
+
+   const handleSearchClick = () => {
+    navigate(`/?search=${search}`);
+  };
 
   useEffect(() => {
     const user = localStorage.getItem("username");
@@ -29,7 +45,14 @@ function Navbar() {
       {/* CENTER (optional search placeholder) */}
       <input
         placeholder="Search videos..."
-        style={styles.search}
+        value={search}
+        onChange={(e) => {
+    const value = e.target.value;
+    setSearch(value);
+    handleSearch(value); // live search
+  }}
+  onKeyDown={handleKeyDown}
+  style={styles.search}
       />
 
       {/* RIGHT SIDE */}

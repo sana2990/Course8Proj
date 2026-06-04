@@ -8,37 +8,55 @@ const api = axios.create({
 function Channel() {
   const [channel, setChannel] = useState(null);
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const channelId = localStorage.getItem("channelId");
 
   useEffect(() => {
-    fetchChannel();
-    fetchVideos();
-  }, []);
+    if (!channelId) return;
 
-  const fetchChannel = async () => {
-    const res = await api.get(`/channels/${channelId}`);
-    setChannel(res.data);
-  };
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-  const fetchVideos = async () => {
-    const res = await api.get(`/channels/${channelId}/videos`);
-    setVideos(res.data);
-  };
+        const channelRes = await api.get(`/channels/${channelId}`);
+        const videoRes = await api.get(
+          `/channels/${channelId}/videos`
+        );
+
+        setChannel(channelRes.data);
+        setVideos(videoRes.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [channelId]);
+
+  if (loading) return <h2>Loading channel...</h2>;
+
+  if (!channel) return <h2>Channel not found</h2>;
 
   return (
-    <div>
-      <h1>{channel?.channelName}</h1>
-      <p>{channel?.description}</p>
+    <div style={{ padding: "20px" }}>
+      <h1>{channel.channelName}</h1>
+      <p>{channel.description}</p>
 
       <h2>Your Videos</h2>
 
-      {videos.map((v) => (
-        <div key={v._id}>
-          <img src={v.thumbnailUrl} width="200" />
-          <h4>{v.title}</h4>
-        </div>
-      ))}
+      {videos.length === 0 ? (
+        <p>No videos uploaded yet</p>
+      ) : (
+        videos.map((v) => (
+          <div key={v._id} style={{ marginBottom: "15px" }}>
+            <img src={v.thumbnailUrl} width="200" />
+            <h4>{v.title}</h4>
+          </div>
+        ))
+      )}
     </div>
   );
 }
