@@ -10,6 +10,7 @@ function Login() {
   const [password, setPassword] =
     useState("");
 
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -31,6 +32,9 @@ function Login() {
         "username",
         res.data.username
       );
+
+      // notify navbar
+window.dispatchEvent(new Event("userChanged"));
 
       navigate("/");
     } catch (error) {

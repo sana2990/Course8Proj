@@ -9,12 +9,14 @@ import Navbar from "./components/NavBar";
 import CreateChannel from "./pages/CreateChannel";
 import UploadVideo from "./pages/UploadVideo";
 import Sidebar from "./components/SideBar";
+import { AuthContext, AuthProvider } from "./context/AuthContext";
 
 const token = localStorage.getItem("token");
 const username = localStorage.getItem("username");
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
     <Navbar />
       <Routes>
@@ -42,6 +44,7 @@ function App() {
         <Route path="/upload-video" element={<UploadVideo />} />
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -3,71 +3,78 @@ import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [username, setUsername] = useState("");
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
-
-  const handleSearch = (value) => {
-  navigate(`/?search=${value}`);
-};
-
-const handleKeyDown = (e) => {
-  if (e.key === "Enter") {
-    handleSearch(search);
-  }
-};
-
-   const handleSearchClick = () => {
-    navigate(`/?search=${search}`);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem("username");
-    setUsername(user);
+    const updateUser = () => {
+      setUsername(localStorage.getItem("username") || "");
+    };
+
+    // Initial load
+    updateUser();
+
+    // Listen for login/logout
+    window.addEventListener("userChanged", updateUser);
+
+    return () => {
+      window.removeEventListener("userChanged", updateUser);
+    };
   }, []);
+
+  const handleSearch = (value) => {
+    setSearch(value);
+
+    if (value.trim() === "") {
+      navigate("/");
+    } else {
+      navigate(`/?search=${value}`);
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("channelId");
-    setUsername("");
+
+    // Tell Navbar to update
+    window.dispatchEvent(new Event("userChanged"));
+
     navigate("/login");
   };
 
   return (
     <div style={styles.navbar}>
-
-      {/* LEFT SIDE */}
-      <h2 style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+      <h2
+        style={{ cursor: "pointer" }}
+        onClick={() => navigate("/")}
+      >
         YouTube Clone
       </h2>
 
-      {/* CENTER (optional search placeholder) */}
       <input
         placeholder="Search videos..."
         value={search}
-        onChange={(e) => {
-    const value = e.target.value;
-    setSearch(value);
-    handleSearch(value); // 🔥 live search
-  }}
-  onKeyDown={handleKeyDown}
-  style={styles.search}
+        onChange={(e) => handleSearch(e.target.value)}
+        style={styles.search}
       />
 
-      {/* RIGHT SIDE */}
       <div style={styles.right}>
-
         {username ? (
           <>
             <span style={styles.username}>
               {username}
             </span>
 
-            <button onClick={() => navigate("/create-channel")}>
+            <button
+              onClick={() => navigate("/create-channel")}
+            >
               Create Channel
             </button>
 
-            <button onClick={() => navigate("/upload-video")}>
+            <button
+              onClick={() => navigate("/upload-video")}
+            >
               Upload Video
             </button>
 
@@ -80,9 +87,7 @@ const handleKeyDown = (e) => {
             Sign In
           </button>
         )}
-
       </div>
-
     </div>
   );
 }
