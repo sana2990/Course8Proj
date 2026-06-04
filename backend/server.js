@@ -18,7 +18,7 @@ app.use(cors());app.use(cors({
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-app.use("/channels", channelRoutes);
+app.use("api/channels", channelRoutes);
 app.use("/videos", videoRoutes);
 app.use("/comments", commentRoutes);
 app.listen(5002, () => {

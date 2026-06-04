@@ -62,6 +62,9 @@ export const loginUser = async (req, res) => {
       });
     }
 
+console.log("USER OBJECT:", user);
+console.log("USER ID:", user._id)
+
     const token = jwt.sign(
       {
         id: user._id,
@@ -72,11 +75,12 @@ export const loginUser = async (req, res) => {
       }
     );
 
-    res.status(200).json({
-      message: "Login successful",
-      token,
-      username: user.username,
-    });
+res.status(200).json({
+  message: "Login successful",
+  token,
+  username: user.username,
+  id: user._id,
+});
   } catch (error) {
     res.status(500).json({
       message: error.message,
