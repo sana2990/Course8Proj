@@ -61,8 +61,8 @@ function Home() {
           }}
         >
           {videos.map((video) => (
-            <VideoCard
-              key={video._id}
+             <VideoCard
+              key={video._id || video.id}
               video={video}
             />
           ))}

@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 
 function VideoCard({ video }) {
-  return (
+  console.log("Video Data in Card:", video);
+
+  // Fallback check: Use video._id, if missing try video.id, if missing default to a fallback string
+  const videoId = video._id || video.id;
+    return (
     <Link
       to={`/video/${video._id}`}
-      style={{ textDecoration: "none", color: "black" }}
+      style={{ textDecoration: "none" }}
     >
       <div className="video-card">
         <img

@@ -6,6 +6,9 @@ import VideoPlayer from "./pages/VideoPlayer";
 import Home from "./pages/Home";
 import Channel from "./pages/Channel";
 import Navbar from "./components/NavBar";
+import CreateChannel from "./pages/CreateChannel";
+import UploadVideo from "./pages/UploadVideo";
+import Sidebar from "./components/SideBar";
 
 const token = localStorage.getItem("token");
 const username = localStorage.getItem("username");
@@ -35,6 +38,8 @@ function App() {
         <Route
           path="channel/:id"
           element={<Channel />} />
+           <Route path="/create-channel" element={<CreateChannel />} />
+        <Route path="/upload-video" element={<UploadVideo />} />
       </Routes>
     </BrowserRouter>
   );

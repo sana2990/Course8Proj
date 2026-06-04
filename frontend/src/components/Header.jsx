@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Sidebar from "./SideBar";
 
 function Header({
   search,
@@ -17,23 +18,6 @@ function Header({
           "space-between",
       }}
     >
-      <h2>YouTube Clone</h2>
-
-      <input
-        value={search}
-        placeholder="Search"
-        onChange={(e) =>
-          setSearch(e.target.value)
-        }
-      />
-
-      {username ? (
-        <h4>{username}</h4>
-      ) : (
-        <Link to="/login">
-          Sign In
-        </Link>
-      )}
     </header>
   );
 }
