@@ -11,7 +11,6 @@ function Channel() {
   const [channel, setChannel] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
 
   const { id: channelId } = useParams();
 

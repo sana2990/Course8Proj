@@ -32,6 +32,8 @@ function Login() {
         "username",
         res.data.username
       );
+      localStorage.setItem("userId", res.data.id);
+
 
       // notify navbar
 window.dispatchEvent(new Event("userChanged"));

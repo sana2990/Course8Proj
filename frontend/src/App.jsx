@@ -9,6 +9,7 @@ import Navbar from "./components/NavBar";
 import CreateChannel from "./pages/CreateChannel";
 import UploadVideo from "./pages/UploadVideo";
 import Sidebar from "./components/SideBar";
+import MyChannel from "./pages/MyChannel";
 import { AuthContext, AuthProvider } from "./context/AuthContext";
 
 const token = localStorage.getItem("token");
@@ -37,6 +38,7 @@ function App() {
           path="/video/:id"
           element={<VideoPlayer />}
         />
+        <Route path="/channel" element={<MyChannel />} />
         <Route
           path="channel/:id"
           element={<Channel />} />

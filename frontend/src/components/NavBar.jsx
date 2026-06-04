@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 function Navbar() {
   const [username, setUsername] = useState("");
@@ -66,13 +67,20 @@ function Navbar() {
               {username}
             </span>
 
-           <button
-  onClick={() => {
-    const channelId = localStorage.getItem("channelId");
+<button
+  onClick={async () => {
+    try {
+      const userId = localStorage.getItem("userId");
 
-    if (channelId) {
-      navigate("/channel");
-    } else {
+      const res = await api.get(
+        `/api/channels/user/${userId}`
+      );
+
+      const channel = res.data;
+
+      navigate(`/channel/${channel._id}`);
+    } catch (err) {
+      console.log(err);
       navigate("/create-channel");
     }
   }}
