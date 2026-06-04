@@ -7,9 +7,8 @@ function Navbar() {
   const [search, setSearch] = useState("");
 
   const handleSearch = (value) => {
-    setSearch(value);
-    navigate(`/?search=${value}`);
-  };
+  navigate(`/?search=${value}`);
+};
 
 const handleKeyDown = (e) => {
   if (e.key === "Enter") {
@@ -49,7 +48,7 @@ const handleKeyDown = (e) => {
         onChange={(e) => {
     const value = e.target.value;
     setSearch(value);
-    handleSearch(value); // live search
+    handleSearch(value); // 🔥 live search
   }}
   onKeyDown={handleKeyDown}
   style={styles.search}
